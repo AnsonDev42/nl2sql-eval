@@ -1,6 +1,8 @@
 # NL2SQL Evaluation Tool
 
-A Streamlit application for evaluating natural language to SQL (NL2SQL) model performance.
+A Streamlit application for side-by-side evaluating natural language to SQL (NL2SQL) model performance.
+
+demo image: ![demo](demo.png)
 
 ## Overview
 
