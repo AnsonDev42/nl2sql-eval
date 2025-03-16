@@ -16,19 +16,23 @@ This tool allows you to:
 6. Edit and save evaluation results to a CSV file
 
 ## Setup
-
-1. Install the required dependencies:
+1. Prepare eval data:
+   - put the csv in root folder
+   - put the eml file in root folder if you want to extract images from it; ELSE put all images in a folder named `images` in root folder
+2. Install the required dependencies:
    ```
    uv pip install -r pyproject.toml
    ```
 
-2. Configure AWS credentials:
-   Ensure you have AWS credentials set up with appropriate permissions for Glue operations.
-
-3. Run the application:
+3. Configure AWS credentials:
+   - Ensure you have AWS credentials set up with appropriate permissions for Glue operations.
+   - copy .env.example to .env and fill in the required fields(aws database name)
+4. Run the application:
    ```
    uv run streamlit run app.py
    ```
+5. remember to click "Save Evaluation" in each form to save the results to the working copy
+6. Click "Save All Evaluations" at the end to save the evaluations to the original csv file
 
 ## Features
 
