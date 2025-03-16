@@ -17,3 +17,6 @@ wheels/
 
 # ignore .csv file
 *.csv
+
+/.idea
+
