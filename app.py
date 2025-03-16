@@ -30,9 +30,9 @@ load_dotenv()  # take environment variables
 EVAL_FIELDS = {
     "Correctness": {"options": [0, 1], "help": "1 if SQL is syntactically and logically correct, 0 otherwise"},
     "ResultMatch": {"options": [0, 1], "help": "1 if output matches expectations, 0 otherwise"},
-    "UserRating": {"options": list(range(1, 6)), "help": "Subjective rating on SQL quality (1-5)"},
+    "UserRating": {"options": list(range(0, 6)), "help": "Subjective rating on SQL quality (1-5), 0 as unknown"},
     "VoiceUsed": {"options": [0], "help": "Mark 0 for all rows"},
-    "ChartRating": {"options": list(range(1, 6)), "help": "Rating on generated chart quality (1-5)"},
+    "ChartRating": {"options": list(range(0, 6)), "help": "Rating on generated chart quality (1-5), 0 as unknown"},
     "AnalystChartChoice": {"options": ["bar", "line", "pie", "scatter", "table", "other"], "help": "Preferred chart type"}
 }
 
@@ -53,7 +53,7 @@ def save_working_copy(df):
 def finalize_changes():
     working_df = pd.read_csv(WORKING_CSV_PATH)
     working_df.to_csv(CSV_PATH, index=False)
-    st.success("Changes saved to original CSV file.")
+    st.success("Changes saved to CSV file.")
     
 
 # Function to execute SQL query using AWS Glue
@@ -316,25 +316,6 @@ def evaluation_page():
                     
                     # Save working copy
                     save_working_copy(df)
-            
-            # Chart preview (if data is available)
-            if database:
-                try:
-                    # Use either gold or model SQL based on toggle
-                    use_gold = st.checkbox("Use Gold SQL for chart preview", value=True)
-                    sql_to_use = question_data['GoldSQL'] if use_gold else model_sql
-                    
-                    # Execute query for chart
-                    chart_data = execute_sql(sql_to_use, database)
-                    
-                    if chart_data is not None and not chart_data.empty:
-                        # Generate chart
-                        fig = generate_chart(chart_data, selected_chart_type)
-                        if fig:
-                            st.plotly_chart(fig, use_container_width=True)
-                except Exception as e:
-                    st.error(f"Error generating chart preview: {e}")
-               # Display chart images for this question and model
     # Save final changes
     if st.button("Save all changes to original CSV", type="primary"):
         finalize_changes()
