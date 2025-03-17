@@ -16,12 +16,13 @@ This tool allows you to:
 6. Edit and save evaluation results to a CSV file
 
 ## Setup
+0. Install [uv](https://docs.astral.sh/uv/getting-started/installation/)  for python env/packages.
 1. Prepare eval data:
    - put the csv in root folder
    - put the eml file in root folder if you want to extract images from it; ELSE put all images in a folder named `images` in root folder
 2. Install the required dependencies:
    ```
-   uv pip install -r pyproject.toml
+   uv sync
    ```
 
 3. Configure AWS credentials:
